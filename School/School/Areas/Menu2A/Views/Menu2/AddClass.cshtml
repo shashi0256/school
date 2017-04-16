@@ -1,0 +1,86 @@
+﻿@model School.Areas.Menu2A.ViewModel.Menu2VM
+
+@using School.Areas.Menu2A.Models
+@{
+    ViewBag.Title = "AddClass | School";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<style type="text/css">
+    .bs-example {
+        margin: 20px;
+    }
+</style>
+
+<br />
+<div class="col-md-12">
+    <div class="col-md-4" id="Left">
+        <form method="post" id="addClassForm">
+            <div class="form-group">
+                <label for="ClassName">Class*</label>
+                <input type="text" class="form-control fillJS1" name="ClassName" id="ClassName" placeholder="Class" required>
+            </div>
+            <div class="form-group">
+                <label for="ClassDescription">Class Description*</label>
+                <input type="text" class="form-control fillJS2" name="ClassDescription" id="ClassDescription" placeholder="Class Description" required>
+            </div>
+            <input type="hidden" class="form-control fillJS3" name="Id" id="Id" readonly>
+            <br />
+
+            <button class="btn btn-primary" id="btnadd"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add</button>
+            <button class="btn btn-primary" id="btnmodify"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Modify</button>
+            <button class="btn btn-primary" id="btndel"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Delete</button>
+            <button class="btn btn-primary" type="reset" id="btnreset"><span class="glyphicon glyphicon-refresh" aria-hidden="true"></span></button>
+        </form>
+    </div>
+
+    <div class="col-md-8" id="Right">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th class="col-md-1">Id</th>
+                    <th class="col-md-3">Subject</th>
+                    <th class="col-md-7">Description</th>
+                    <th class="col-md-1"></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (Menu2Model o in Model.menu2Data)
+                {
+                    <tr>
+                        <td>@o.Id</td>
+                        <td>@o.ClassName</td>
+                        <td>@o.ClassDescription</td>
+                        <td><button class="btn btn-primary btn-xs" onclick="autoFill('@o.ClassName','@o.ClassDescription','@o.Id'); return false;"><span class="glyphicon glyphicon-pencil"></span></button></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+<br /><br />
+<script>
+    function autoFill(inputdata1, inputdata2, inputdata3) {
+        $('.fillJS1').val(inputdata1);
+        $('.fillJS2').val(inputdata2);
+        $('.fillJS3').val(inputdata3);
+        $("#btnadd").click(function() {
+            var form = $("form#addClassForm");
+          form.attr("action", "@Url.Action("Index","Menu2", new { Area = "Menu2A" })");
+          form.submit();
+      });
+        $("#btnmodify").click(function () {
+            var form = $("form#addClassForm");
+          form.attr("action", "@Url.Action("Modify","Menu2", new { Area = "Menu2A" })");
+          form.submit();
+      });
+
+        $("#btndel").click(function() {
+          var form = $("form#addClassForm");
+          form.attr("action", "@Url.Action("Delete", "Menu2", new { Area = "Menu2A" })");
+          form.submit();
+      });
+    }
+</script>

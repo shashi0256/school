@@ -1,0 +1,43 @@
+﻿@model School.ViewModel.MenuViewModel
+@using School.Models
+@{
+    ViewBag.Title = "Menu";
+}
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style type="text/css">
+        
+
+        .material-icons {
+            font-size: 6vw;
+        }
+
+        .thumbnail {
+            border-color: #47d147;
+        }
+    </style>
+
+    <!--
+            Authors
+            --------
+            SuPrEm3
+            Vin0d
+    -->
+
+<br /><br /><br /><br />
+    <div class="container">
+        <!-- container1 -->
+        <div class="row col-md-8 col-md-offset-2">
+            <!-- row -->
+            @foreach (MenuModal o in Model.menus)
+            {
+                <div class="col-lg-3 col-md-4 col-xs-6">
+                    <a href="@o.MenuItemHref" class="thumbnail text-center text-muted">
+                        <i class="material-icons">&@o.MenuIcon</i>
+                        <h6>@o.MenuItem</h6>
+                    </a>
+                </div>
+            }
+            
+        </div><!-- /row -->
+    </div> <!-- /container1 -->
